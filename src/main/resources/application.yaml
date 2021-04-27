@@ -1,0 +1,15 @@
+spring:
+ main:
+  web-application-type: none
+
+baseUrl:
+  google: https://www.googleapis.com/customsearch/v1
+  bing: https://api.bing.microsoft.com/v7.0/search
+
+googleCx:
+
+
+apiKey:
+  google:
+  bing:
+
