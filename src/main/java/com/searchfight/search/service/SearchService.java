@@ -18,14 +18,14 @@ public class SearchService {
 
     private final SearchFactory searchFactory;
 
-    public Map<String, List<SearchTermResult>> search(String[] terms) {
-        Map<String, List<SearchTermResult>> results = new HashMap<>();
-        for (String term : terms) {
-            for (SearchEngineName engineName : SearchEngineName.values()) {
-                Search engine = searchFactory.getSearchEngine(engineName);
-                long hits = engine.getHits(term);
+    public Map<String, List<SearchTermResult>> search(Set<String> terms) {
+        var results = new HashMap<String, List<SearchTermResult>>();
+        for (var term : terms) {
+            for (var engineName : SearchEngineName.values()) {
+               var engine = searchFactory.getSearchEngine(engineName);
+                var hits = engine.getHits(term);
                 if (results.get(term) == null) {
-                    List<SearchTermResult> engineList = new ArrayList<>(
+                    var engineList = new ArrayList<>(
                             singletonList(new SearchTermResult(term, engineName.name(), hits)));
                     results.put(term, engineList);
                 } else {
@@ -73,7 +73,7 @@ public class SearchService {
     }
 
     private void printEnginesWinner(Map<String, String> engineWinners) {
-        StringBuilder str = new StringBuilder();
+        var str = new StringBuilder();
         for (Map.Entry<String, String> entry : engineWinners.entrySet()) {
             str.append(entry.getKey()).append(" Winner: ").append(entry.getValue());
             str.append(" \n");
@@ -82,7 +82,7 @@ public class SearchService {
     }
 
     private void printResultsPerTerm(Map<String, List<SearchTermResult>> results) {
-        StringBuilder str = new StringBuilder();
+        var str = new StringBuilder();
         for (Map.Entry<String, List<SearchTermResult>> entry : results.entrySet()) {
             str.append(entry.getKey()).append(": ");
             for (SearchTermResult searchTerm : entry.getValue()) {

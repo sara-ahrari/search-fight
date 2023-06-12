@@ -34,7 +34,7 @@ public class GoogleSearchService extends Search {
     @Override
     public long getHits(String searchTerm) {
         try {
-            ResponseEntity<GoogleSearchResult> response
+            var response
                     = restTemplate.getForEntity(buildUrl(searchTerm), GoogleSearchResult.class);
             if (response.getStatusCode() == OK) {
                 return response.getBody().getSearchInformation().getTotalResults();
@@ -47,7 +47,7 @@ public class GoogleSearchService extends Search {
     }
 
     private String buildUrl(String searchTerm) {
-        UriComponentsBuilder uri = fromUriString(baseUrl)
+       var uri = fromUriString(baseUrl)
                 .queryParam("key", apiKey)
                 .queryParam("cx", cx).queryParam("q", searchTerm);
         return uri.toUriString();

@@ -33,11 +33,11 @@ public class BingSearchService extends Search {
     @Override
     public long getHits(String searchTerm) {
         long hits = 0;
-        HttpHeaders headers = new HttpHeaders();
+        var headers = new HttpHeaders();
         headers.set("Ocp-Apim-Subscription-Key", apiKey);
-        HttpEntity<String> entity = new HttpEntity<>(headers);
+       var entity = new HttpEntity<String>(headers);
         try {
-            ResponseEntity<BingSearchResult> response = restTemplate
+            var response = restTemplate
                     .exchange(buildUrl(searchTerm), GET, entity, BingSearchResult.class);
 
             if (response.getStatusCode() == OK) {
@@ -54,7 +54,7 @@ public class BingSearchService extends Search {
     }
 
     private String buildUrl(String searchTerm) {
-        UriComponentsBuilder uri = fromUriString(baseUrl)
+        var uri = fromUriString(baseUrl)
                 .queryParam("q", searchTerm);
         return uri.toUriString();
     }

@@ -34,21 +34,14 @@ public class SearchApplication implements CommandLineRunner {
     @Override
     public void run(String[] args) {
 
-        args = removeDuplicates(args);
-        if (args.length > 1) {
+        var terms =new HashSet<>(asList(args));
+        if (terms.size() > 1) {
             System.out.println("\n" + "---------------------WELCOME! HERE ARE THE RESULTS OF YOUR FIGHT------------------" + "\n");
-            Map<String,List<SearchTermResult>> results = searchService.search(args);
+            var results = searchService.search(terms);
             searchService.getEnginesWinner(results);
             System.out.println("Total Winner: " + searchService.getTotalWinner(results));
         } else {
             System.out.println("\n" + "OBS! You have to run the program with at least two distinct words");
         }
     }
-
-    private String[] removeDuplicates(String[] terms) {
-        Set<String> termsSet = new HashSet<>(asList(terms));
-        String[] result = {};
-        return termsSet.toArray(result);
-    }
-
 }
